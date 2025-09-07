@@ -214,3 +214,7 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Custom
+!example_logs/*.log
+!example_logs/*.txt
