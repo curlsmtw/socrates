@@ -218,3 +218,4 @@ __marimo__/
 # Custom
 !example_logs/*.log
 !example_logs/*.txt
+chroma_langchain_db/*
