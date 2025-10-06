@@ -1,6 +1,7 @@
 from src.document_loader import DocumentLoader
 from src.text_splitter import LineOverlapTextSplitter
 from src.embedding_model import EmbeddingModel
+from src.vector_store import VectorStore
 
 if __name__ == "__main__":
     loader = DocumentLoader("example_logs")
@@ -11,7 +12,9 @@ if __name__ == "__main__":
     for doc in documents:
         chunks.extend(splitter.split(doc.page_content))
 
-    embedding_model = EmbeddingModel()
-    for chunk in chunks:
-        embedding = embedding_model.embed_query(chunk)
-        print(f"Chunk: {chunk}\nEmbedding: {embedding}\n")
+    embedding = EmbeddingModel()
+    vector_store = VectorStore(
+        embedding_function=embedding.model, collection_name="log_collection"
+    )
+    vector_store.add_documents(chunks)
+    print(f"Added {len(chunks)} chunks to the vector store.")
