@@ -23,7 +23,12 @@ if __name__ == "__main__":
     )
     vector_store.add_documents(chunks)
 
-    chat = ChatModel()
     query = "Summarize the main topic of these logs."
+    results = vector_store.similarity_search(query, k=3)
+    print("Top matches from vector store:")
+    for r in results:
+        print(f"- {r.page_content[:200]!r} ...")
+
+    chat = ChatModel()
     response = chat.invoke(query)
     print(f"Chat model response: {response}")

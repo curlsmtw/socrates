@@ -38,3 +38,6 @@ class VectorStore:
         if documents and isinstance(documents[0], str):
             documents = [Document(page_content=chunk) for chunk in documents]
         return self.client.add_documents(documents=documents, ids=ids)
+
+    def similarity_search(self, query: str, k: int = 4, filter: Optional[dict] = None):
+        return self.client.similarity_search(query, k=k, filter=filter)
