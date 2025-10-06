@@ -6,6 +6,7 @@ from src.document_loader import DocumentLoader
 from src.text_splitter import LineOverlapTextSplitter
 from src.embedding_model import EmbeddingModel
 from src.vector_store import VectorStore
+from src.chat_model import ChatModel
 
 if __name__ == "__main__":
     loader = DocumentLoader("example_logs")
@@ -21,4 +22,8 @@ if __name__ == "__main__":
         embedding_function=embedding.model, collection_name="log_collection"
     )
     vector_store.add_documents(chunks)
-    print(f"Added {len(chunks)} chunks to the vector store.")
+
+    chat = ChatModel()
+    query = "Summarize the main topic of these logs."
+    response = chat.invoke(query)
+    print(f"Chat model response: {response}")
