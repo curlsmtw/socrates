@@ -2,12 +2,12 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-from src.document_loader import DocumentLoader
-from src.text_splitter import LineOverlapTextSplitter
-from src.embedding_model import EmbeddingModel
-from src.vector_store import VectorStore
-from src.chat_model import ChatModel
-from src.prompt_template import PromptTemplate
+from src.rag_modules.document_loader import DocumentLoader
+from src.rag_modules.text_splitter import LineOverlapTextSplitter
+from src.rag_modules.embedding_model import EmbeddingModel
+from src.rag_modules.vector_store import VectorStore
+from src.rag_modules.chat_model import ChatModel
+from src.rag_modules.prompt_template import PromptTemplate
 
 if __name__ == "__main__":
     loader = DocumentLoader("example_logs")
