@@ -1,3 +1,7 @@
+from dotenv import load_dotenv
+
+load_dotenv()
+
 from src.document_loader import DocumentLoader
 from src.text_splitter import LineOverlapTextSplitter
 from src.embedding_model import EmbeddingModel
