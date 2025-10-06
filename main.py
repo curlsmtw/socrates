@@ -7,6 +7,7 @@ from src.text_splitter import LineOverlapTextSplitter
 from src.embedding_model import EmbeddingModel
 from src.vector_store import VectorStore
 from src.chat_model import ChatModel
+from src.prompt_template import PromptTemplate
 
 if __name__ == "__main__":
     loader = DocumentLoader("example_logs")
@@ -26,9 +27,14 @@ if __name__ == "__main__":
     query = "Summarize the main topic of these logs."
     results = vector_store.similarity_search(query, k=3)
     print("Top matches from vector store:")
+    context = [r.page_content for r in results]
     for r in results:
         print(f"- {r.page_content[:200]!r} ...")
 
     chat = ChatModel()
-    response = chat.invoke(query)
+    prompt_t = PromptTemplate(
+        system_instructions="You are a concise helpful assistant."
+    )
+    prompt = prompt_t.format(context, query)
+    response = chat.invoke(prompt)
     print(f"Chat model response: {response}")
