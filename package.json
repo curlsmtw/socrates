@@ -1,6 +1,6 @@
 {
     "name": "socrates",
     "scripts": {
-        "backend": "uvicorn main:app"
+        "backend": "cd backend & uvicorn main:app"
     }
 }

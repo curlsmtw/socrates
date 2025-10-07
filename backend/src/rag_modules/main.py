@@ -38,9 +38,9 @@ class RAGPipeline:
 
     def __init__(
         self,
-        persist_directory: str = "chroma_langchain_db",
+        persist_directory: str = "../chroma_langchain_db",
         collection_name: str = "log_collection",
-        loader_path: str = "example_logs",
+        loader_path: str = "../example_logs",
         splitter_args=(2, 1),
         model_backend: str | None = None,
     ):
