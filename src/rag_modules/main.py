@@ -6,8 +6,8 @@ from src.rag_modules.document_loader import DocumentLoader
 from src.rag_modules.text_splitter import LineOverlapTextSplitter
 from src.rag_modules.embedding_model import EmbeddingModel
 from src.rag_modules.vector_store import VectorStore
-from src.rag_modules.chat_model import ChatModel
 from src.rag_modules.prompt_template import PromptTemplate
+from src.rag_modules.chat_models.main import ChatModelSelector
 
 
 class RAGPipeline:
@@ -42,12 +42,15 @@ class RAGPipeline:
         collection_name: str = "log_collection",
         loader_path: str = "example_logs",
         splitter_args=(2, 1),
+        model_backend: str | None = None,
     ):
         self.persist_directory = persist_directory
         self.collection_name = collection_name
         self.loader_path = loader_path
         self.splitter_args = splitter_args
         self.vector_store = None
+        self.model_backend = model_backend
+        self.chat_selector = ChatModelSelector()
 
     def build_retrieval(self):
 
@@ -81,7 +84,7 @@ class RAGPipeline:
         query,
         system_instructions: str = "You are a concise helpful assistant.",
     ):
-        chat = ChatModel()
+        chat = self.chat_selector.get_chat_model(self.model_backend)
         prompt_t = PromptTemplate(system_instructions=system_instructions)
         prompt = prompt_t.format(context, query)
         response = chat.invoke(prompt)
